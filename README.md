@@ -1,97 +1,172 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# DisprzTest
 
-# Getting Started
+A [React Native](https://reactnative.dev) mobile application built with TypeScript, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Tech Stack
 
-## Step 1: Start Metro
+| Technology | Version |
+|---|---|
+| React Native | 0.85.2 |
+| React | 19.2.3 |
+| TypeScript | ^5.8.3 |
+| Node.js | >= 22.11.0 |
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Prerequisites
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Before getting started, ensure you have completed the [React Native Environment Setup](https://reactnative.dev/docs/set-up-your-environment) guide for your target platform (Android / iOS).
+
+- **Node.js** >= 22.11.0
+- **Watchman** (macOS/Linux)
+- **Android Studio** + Android SDK (for Android)
+- **Xcode** + CocoaPods (for iOS, macOS only)
+
+## Installation
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/adityas-simform/DisprzTest.git
+   cd DisprzTest
+   ```
+
+2. **Install JavaScript dependencies**
+
+   ```sh
+   npm install
+   ```
+
+3. **Install iOS native dependencies** *(macOS only)*
+
+   ```sh
+   bundle install
+   bundle exec pod install
+   ```
+
+## Running the App
+
+### Step 1: Start the Metro dev server
 
 ```sh
-# Using npm
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+### Step 2: Run on a device or emulator
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Open a new terminal tab and run one of the following:
 
-### Android
+**Android**
 
 ```sh
-# Using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+**iOS** *(macOS only)*
 
 ```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+If everything is set up correctly, the app will launch in the Android Emulator, iOS Simulator, or a connected physical device.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+> You can also build and run directly from **Android Studio** or **Xcode**.
 
-## Step 3: Modify your app
+### Hot Reloading
 
-Now that you have successfully run the app, let's make changes!
+The app supports [Fast Refresh](https://reactnative.dev/docs/fast-refresh) — save any source file to see your changes instantly.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+To trigger a full reload manually:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- **Android**: Press <kbd>R</kbd> twice, or open the Dev Menu with <kbd>Ctrl</kbd>+<kbd>M</kbd> (Windows/Linux) / <kbd>Cmd ⌘</kbd>+<kbd>M</kbd> (macOS) and select **Reload**.
+- **iOS**: Press <kbd>R</kbd> in the iOS Simulator.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Project Structure
 
-## Congratulations! :tada:
+```
+DisprzTest/
+├── __tests__/                 # Test files
+│   └── App.test.tsx
+├── src/
+│   ├── components/            # Reusable UI components
+│   │   └── PrimaryButton.tsx
+│   └── utils/                 # Utility/helper functions
+│       └── formatDate.ts
+├── App.tsx                    # Root application component
+├── index.js                   # Entry point
+├── app.json                   # App configuration
+├── tsconfig.json              # TypeScript configuration
+├── babel.config.js            # Babel configuration
+├── metro.config.js            # Metro bundler configuration
+├── jest.config.js             # Jest test configuration
+└── package.json
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Available Scripts
 
-### Now what?
+| Script | Description |
+|---|---|
+| `npm start` | Start the Metro dev server |
+| `npm run android` | Build and run on Android |
+| `npm run ios` | Build and run on iOS |
+| `npm test` | Run the Jest test suite |
+| `npm run lint` | Lint source files with ESLint |
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Testing
 
-# Troubleshooting
+Run the full test suite with:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```sh
+npm test
+```
 
-# Learn More
+Tests are located in the `__tests__/` directory and use [Jest](https://jestjs.io/) with the `@react-native/jest-preset`.
 
-To learn more about React Native, take a look at the following resources:
+## Linting & Formatting
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project uses [ESLint](https://eslint.org/) with the `@react-native` config and [Prettier](https://prettier.io/) for code formatting.
+
+```sh
+npm run lint
+```
+
+## Components
+
+### `PrimaryButton`
+
+A reusable, accessible button component.
+
+**Props:**
+
+| Prop | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `label` | `string` | ✅ | — | Button text |
+| `onPress` | `() => void` | ✅ | — | Press handler |
+| `disabled` | `boolean` | ❌ | `false` | Disables the button |
+| `testID` | `string` | ❌ | — | Test identifier |
+
+**Usage:**
+
+```tsx
+import PrimaryButton from './src/components/PrimaryButton';
+
+<PrimaryButton label="Submit" onPress={() => console.log('pressed')} />
+```
+
+## Utilities
+
+### `formatDate(date: Date | string): string`
+
+Formats a `Date` object or ISO 8601 string into a human-readable string (e.g. `"April 21, 2026"`). Throws an `Error` if the date is invalid.
+
+### `isPastDate(date: Date | string): boolean`
+
+Returns `true` if the given date is in the past.
+
+## Troubleshooting
+
+If you run into issues, refer to the React Native [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+
+## Learn More
+
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [React Native Blog](https://reactnative.dev/blog)
+- [React Native GitHub Repository](https://github.com/facebook/react-native)
