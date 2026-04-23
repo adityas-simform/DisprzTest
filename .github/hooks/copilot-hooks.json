@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "mkdir -p logs && echo \"Session started: $(date)\" >> logs/session.log",
+        "powershell": "New-Item -ItemType Directory -Force -Path logs | Out-Null; Add-Content -Path logs/session.log -Value \"Session started: $(Get-Date)\"",
+        "cwd": ".",
+        "timeoutSec": 10
+      }
+    ],
+    "userPromptSubmitted": [
+      {
+        "type": "command",
+        "bash": "mkdir -p logs && echo \"[INFO] $(date '+%Y-%m-%dT%H:%M:%S') - User prompt submitted\" >> logs/prompts.log",
+        "powershell": "New-Item -ItemType Directory -Force -Path logs | Out-Null; Add-Content -Path logs/prompts.log -Value \"[INFO] $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss') - User prompt submitted\"",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "env": {
+          "LOG_LEVEL": "INFO"
+        }
+      }
+    ]
+  }
+}
