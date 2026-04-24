@@ -7,14 +7,52 @@ import type { ViewStyle } from 'react-native';
 const BUTTON_ACTIVE_OPACITY = 0.7;
 
 // --- Props Interface ---
+/**
+ * Props accepted by the {@link PrimaryButton} component.
+ *
+ * @example
+ * ```tsx
+ * <PrimaryButton label="Submit" onPress={() => console.log('pressed')} />
+ * ```
+ */
 interface PrimaryButtonProps {
+  /** Text rendered inside the button. Also used as `accessibilityLabel`. */
   label: string;
+  /** Callback invoked when the button is pressed while not disabled. */
   onPress: () => void;
+  /**
+   * When `true` the button is visually dimmed and press events are suppressed.
+   *
+   * @defaultValue false
+   */
   disabled?: boolean;
+  /** Optional test identifier forwarded to the underlying `Pressable`. */
   testID?: string;
 }
 
 // --- Component ---
+/**
+ * A styled, accessible primary action button.
+ *
+ * The button renders a full-width pressable area with a purple background when
+ * enabled, and a grey background when disabled.  Press events are blocked while
+ * `disabled` is `true`.
+ *
+ * @param props - See {@link PrimaryButtonProps}.
+ * @returns A memoised React element wrapping a `Pressable` inside a `View`.
+ *
+ * @example
+ * ```tsx
+ * // Enabled state
+ * <PrimaryButton label="Save" onPress={handleSave} />
+ *
+ * // Disabled state
+ * <PrimaryButton label="Save" onPress={handleSave} disabled />
+ *
+ * // With test ID
+ * <PrimaryButton label="Submit" onPress={handleSubmit} testID="submit-btn" />
+ * ```
+ */
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   label,
   onPress,

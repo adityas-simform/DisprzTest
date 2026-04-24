@@ -1,97 +1,211 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# DisprzTest
 
-# Getting Started
+A React Native mobile application paired with a lightweight Express REST API.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Table of contents
 
-## Step 1: Start Metro
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Repository structure](#repository-structure)
+- [React Native app](#react-native-app)
+  - [Installation](#installation)
+  - [Run on Android](#run-on-android)
+  - [Run on iOS](#run-on-ios)
+- [Express API server](#express-api-server)
+  - [Server installation](#server-installation)
+  - [Start the server](#start-the-server)
+- [Running tests](#running-tests)
+- [Linting](#linting)
+- [Troubleshooting](#troubleshooting)
+- [Learn more](#learn-more)
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Overview
+
+**DisprzTest** is a bootstrapped [React Native](https://reactnative.dev) project (created with
+[`@react-native-community/cli`](https://github.com/react-native-community/cli)) that demonstrates
+a mobile client consuming a simple in-memory user management API built with
+[Express](https://expressjs.com) and TypeScript.
+
+---
+
+## Prerequisites
+
+Make sure the following tools are installed before proceeding.
+
+| Tool | Minimum version | Notes |
+|------|----------------|-------|
+| [Node.js](https://nodejs.org) | 22.11.0 | See `engines` in `package.json` |
+| [npm](https://npmjs.com) | 10.x | Bundled with Node 22 |
+| [Ruby](https://www.ruby-lang.org) | 3.2 | Required for CocoaPods (iOS only) |
+| [CocoaPods](https://cocoapods.org) | 1.15 | iOS dependency manager |
+| [Xcode](https://developer.apple.com/xcode/) | 15 | macOS + iOS builds |
+| [Android Studio](https://developer.android.com/studio) | Hedgehog | Android builds |
+| Java JDK | 17 | Required for Android toolchain |
+
+> **Tip**: Follow the official
+> [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment)
+> guide for a detailed walkthrough.
+
+---
+
+## Repository structure
+
+```text
+DisprzTest/
+├── android/            # Android native project
+├── ios/                # iOS native project
+├── server/             # Express REST API server
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── store/
+│   │   ├── types/
+│   │   └── validators/
+│   ├── package.json
+│   └── tsconfig.json
+├── src/
+│   ├── components/     # Shared React Native components
+│   └── utils/          # Utility functions
+├── __tests__/          # Jest tests
+├── App.tsx             # Root application component
+└── package.json
+```
+
+---
+
+## React Native app
+
+### Installation
+
+Install JavaScript dependencies from the project root:
 
 ```sh
-# Using npm
+npm install
+```
+
+### Run on Android
+
+1. Start the Metro bundler:
+
+   ```sh
+   npm start
+   ```
+
+2. In a new terminal, launch the Android build:
+
+   ```sh
+   npm run android
+   ```
+
+   > Make sure an Android emulator is running or a physical device is connected via ADB.
+
+### Run on iOS
+
+1. Install Ruby gems (first clone only):
+
+   ```sh
+   bundle install
+   ```
+
+2. Install CocoaPods dependencies (first clone or after updating native deps):
+
+   ```sh
+   bundle exec pod install
+   ```
+
+3. Start the Metro bundler:
+
+   ```sh
+   npm start
+   ```
+
+4. In a new terminal, launch the iOS build:
+
+   ```sh
+   npm run ios
+   ```
+
+   > Xcode must be installed and a simulator or device must be available.
+
+---
+
+## Express API server
+
+The server lives in the `server/` directory. It exposes a RESTful user management API on port
+**3000** by default. See [`server/README.md`](server/README.md) for the full API reference.
+
+### Server installation
+
+```sh
+cd server
+npm install
+```
+
+### Start the server
+
+**Development** (uses `ts-node`, no build step needed):
+
+```sh
+cd server
+npm run dev
+```
+
+**Production** (compile first, then run):
+
+```sh
+cd server
+npm run build
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+The server will print:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+```text
+Server running on http://localhost:3000
+```
 
-### Android
+You can override the port by setting the `PORT` environment variable:
 
 ```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+PORT=8080 npm run dev
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Running tests
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+From the project root:
 
 ```sh
-bundle install
+npm test
 ```
 
-Then, and every time you update your native dependencies, run:
+---
+
+## Linting
 
 ```sh
-bundle exec pod install
+npm run lint
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## Troubleshooting
 
-# OR using Yarn
-yarn ios
-```
+- **Metro bundler cache issues** — clear the cache with `npm start -- --reset-cache`.
+- **CocoaPods not found** — run `gem install cocoapods` or use `bundle exec pod install`.
+- **Android build fails** — ensure `ANDROID_HOME` and `JAVA_HOME` environment variables are set
+  correctly.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+For more help, see the
+[React Native troubleshooting guide](https://reactnative.dev/docs/troubleshooting).
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## Learn more
 
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [React Native documentation](https://reactnative.dev/docs/getting-started)
+- [Express documentation](https://expressjs.com/en/4x/api.html)
+- [TypeScript handbook](https://www.typescriptlang.org/docs/)
