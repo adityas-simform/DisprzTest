@@ -7,7 +7,7 @@ import type { ViewStyle } from 'react-native';
 const BUTTON_ACTIVE_OPACITY = 0.7;
 
 // --- Props Interface ---
-interface PrimaryButtonProps {
+export interface PrimaryButtonProps {
   label: string;
   onPress: () => void;
   disabled?: boolean;

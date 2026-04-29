@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^git add \\. && git commit -m \"feat: add component tests, js-ts-test-case skill, and update Jest/TS config\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
