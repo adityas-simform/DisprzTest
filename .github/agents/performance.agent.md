@@ -34,7 +34,7 @@ Your task is to audit the given React Native codebase and identify performance b
 
 ---
 
-### 2. List Optimization (FlatList / SectionList)
+### 2. List Optimization (FlatList / SectionList / FlashList)
 > use skill: list-optimization
 
 - Ensure:
@@ -45,10 +45,12 @@ Your task is to audit the given React Native codebase and identify performance b
   - removeClippedSubviews is enabled for long lists
   - maxToRenderPerBatch is tuned
 - Detect:
-  - ScrollView misuse for large/infinite lists (suggest FlatList)
+  - ScrollView misuse for large/infinite lists (suggest FlatList or FlashList)
   - inline renderItem functions
   - missing memoization
   - large list rendering issues
+- Suggest:
+  - **@shopify/flash-list** as a more performant alternative to FlatList for large datasets
 
 ---
 
@@ -66,18 +68,20 @@ Your task is to audit the given React Native codebase and identify performance b
 
 ---
 
-### 4. State Management
+### 4. State Management & Persistence
 > use skill: state-management-performance
 
 - Detect:
   - unnecessary global state usage
   - excessive re-renders due to state updates
   - state that could be replaced by a React built-in hook available in the current React version
+  - use of slow storage (e.g. `AsyncStorage`) for frequently accessed data
 - Suggest:
   - state normalization
   - local state where possible
   - memoized selectors
   - always check if a React built-in hook (e.g. `useOptimistic`, `useTransition`, `useDeferredValue`) already solves the pattern before reaching for manual state management
+  - **react-native-mmkv** for high-performance, synchronous key-value storage (significantly faster than AsyncStorage)
 
 ---
 
@@ -143,7 +147,7 @@ Your task is to audit the given React Native codebase and identify performance b
 
 ---
 
-### 10. Animation Performance
+### 10. Animation & Graphics Performance
 > use skill: animation-performance
 
 - Detect:
@@ -154,6 +158,7 @@ Your task is to audit the given React Native codebase and identify performance b
 - Suggest:
   - `useNativeDriver: true` for transform/opacity animations
   - Migrating to **Reanimated 2/3** (worklets run on UI thread)
+  - **react-native-skia** for complex 2D graphics and high-performance drawing
   - `react-native-gesture-handler` for gesture-driven animations
   - Pausing/stopping animations when component is not visible
 
@@ -210,7 +215,7 @@ Your task is to audit the given React Native codebase and identify performance b
   - Recursive or deeply nested JS logic causing frame drops
   - `console.log` / `console.warn` calls left in production code (each call crosses the JS-native bridge and blocks the JS thread)
 - Suggest:
-  - Offload CPU-heavy work to a Web Worker / `react-native-workers`
+  - Offload CPU-heavy work to a Web Worker, `react-native-workers`, or **react-native-worklets-core**
   - Use Reanimated worklets to keep animation logic off the JS thread
   - Debounce or throttle expensive event callbacks
   - Profile JS thread usage with the Hermes profiler / Systrace
@@ -396,6 +401,8 @@ Recommend usage of:
 - **Systrace / Android Profiler** — UI & JS thread frame analysis
 - **Xcode Instruments** (iOS) — memory, CPU, Core Animation
 - **react-native-performance** — TTI and startup metrics
+- **Flashlight** — Automated performance measurement and regression testing for CI/CD
+- **Sentry / Datadog / New Relic** — Production performance monitoring, error tracking, and mobile vitals
 - **Bundle Visualizer** (`npx react-native bundle --dev false` + `source-map-explorer`) — bundle size analysis
 
 ---
