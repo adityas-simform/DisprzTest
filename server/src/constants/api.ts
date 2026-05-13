@@ -11,6 +11,9 @@ export const HTTP_STATUS = {
 } as const;
 
 export const API_PREFIX = '/api/v1';
+export const HEALTH_ENDPOINT = '/health';
+export const HEALTH_STATUS = 'ok';
+export const HEALTH_MESSAGE = 'Server is healthy.';
 
 export const ERROR_MESSAGES = {
   USER_NOT_FOUND: 'User not found.',
