@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { ZodSchema } from 'zod';
 import { ZodError } from 'zod';
-import { HTTP_STATUS, ERROR_MESSAGES } from '../constants/api';
+import { ERROR_MESSAGES } from '../constants/api';
 import { ValidationError } from '../errors/AppError';
 
 type RequestPart = 'body' | 'params' | 'query';
@@ -31,7 +31,7 @@ export const validate =
         }
         next(new ValidationError(ERROR_MESSAGES.VALIDATION_FAILED, details));
       } else {
-        next(new Error(`Unexpected validation error at status ${HTTP_STATUS.BAD_REQUEST}`));
+        next(error);
       }
     }
   };

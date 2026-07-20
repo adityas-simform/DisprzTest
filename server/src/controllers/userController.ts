@@ -61,7 +61,12 @@ export const updateUser = (
   }
 
   const updated = userStore.update(req.params.id, req.body);
-  res.status(HTTP_STATUS.OK).json({ success: true, data: updated!, message: 'User updated successfully.' });
+  if (!updated) {
+    next(new NotFoundError(ERROR_MESSAGES.USER_NOT_FOUND));
+    return;
+  }
+
+  res.status(HTTP_STATUS.OK).json({ success: true, data: updated, message: 'User updated successfully.' });
 };
 
 export const deleteUser = (

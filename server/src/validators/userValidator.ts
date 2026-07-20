@@ -2,19 +2,22 @@ import { z } from 'zod';
 
 export const createUserSchema = z.object({
   name: z
-    .string({ error: 'Name is required.' })
+    .string({ required_error: 'Name is required.', invalid_type_error: 'Name is required.' })
     .trim()
     .min(2, 'Name must be at least 2 characters.')
     .max(100, 'Name must not exceed 100 characters.'),
 
   email: z
-    .string({ error: 'Email is required.' })
+    .string({ required_error: 'Email is required.', invalid_type_error: 'Email is required.' })
     .trim()
     .toLowerCase()
     .email('Email must be a valid email address.'),
 
   age: z
-    .number({ error: 'Age is required and must be a number.' })
+    .number({
+      required_error: 'Age is required and must be a number.',
+      invalid_type_error: 'Age is required and must be a number.',
+    })
     .int('Age must be an integer.')
     .min(1, 'Age must be at least 1.')
     .max(120, 'Age must not exceed 120.'),
@@ -32,7 +35,7 @@ export const updateUserSchema = z
     email: z.string().trim().toLowerCase().email('Email must be a valid email address.').optional(),
 
     age: z
-      .number({ error: 'Age must be a number.' })
+      .number({ invalid_type_error: 'Age must be a number.' })
       .int('Age must be an integer.')
       .min(1, 'Age must be at least 1.')
       .max(120, 'Age must not exceed 120.')
