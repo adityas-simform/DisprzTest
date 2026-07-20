@@ -1,0 +1,5 @@
+{"event":"sessionStart","timestamp":"2026-04-23T17:10:39","source":"copilot-agent"}
+{"event":"preToolUse","timestamp":"2026-04-23T17:10:50","toolName":"bash"}
+{"event":"preToolUse","timestamp":"2026-04-23T17:10:50","toolName":"readFile"}
+{"event":"preToolUse","timestamp":"2026-04-23T17:10:50","toolName":"writeFile"}
+{"event":"preToolUse","timestamp":"2026-04-23T17:10:50","toolName":"searchFiles"}

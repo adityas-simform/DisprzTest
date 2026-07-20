@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "mkdir -p logs && echo \"{\\\"event\\\":\\\"sessionStart\\\",\\\"timestamp\\\":\\\"$(date '+%Y-%m-%dT%H:%M:%S')\\\",\\\"source\\\":\\\"copilot-agent\\\"}\" >> logs/security.log",
+        "powershell": "New-Item -ItemType Directory -Force -Path logs | Out-Null; Add-Content -Path logs/security.log -Value \"{`\"event`\":`\"sessionStart`\",`\"timestamp`\":`\"$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')`\",`\"source`\":`\"copilot-agent`\"}\"",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "comment": "Records a structured JSON entry in logs/security.log whenever a new agent session begins."
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "mkdir -p logs && STDIN=$(cat) && TOOL=$(echo \"$STDIN\" | grep -o '\"toolName\":\"[^\"]*\"' | head -1 | sed 's/\"toolName\"://;s/\"//g') && echo \"{\\\"event\\\":\\\"preToolUse\\\",\\\"timestamp\\\":\\\"$(date '+%Y-%m-%dT%H:%M:%S')\\\",\\\"toolName\\\":\\\"${TOOL:-unknown}\\\"}\" >> logs/security.log",
+        "powershell": "New-Item -ItemType Directory -Force -Path logs | Out-Null; $stdin = [Console]::In.ReadToEnd(); $tool = if ($stdin -match '\"toolName\":\"([^\"]+)\"') { $Matches[1] } else { 'unknown' }; Add-Content -Path logs/security.log -Value \"{`\"event`\":`\"preToolUse`\",`\"timestamp`\":`\"$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss')`\",`\"toolName`\":`\"$tool`\"}\"",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "comment": "Intercepts every tool call, extracts the toolName from stdin, and appends a structured JSON audit entry to logs/security.log. Returns no permissionDecision so all tools are allowed through by default."
+      }
+    ]
+  }
+}
